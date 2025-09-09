@@ -4,7 +4,7 @@ import DashboardContainer from './components/dashboard/dashboard.container';
 
 function App() {
   return (
-    <main className="flex items-center justify-center">
+    <main className="flex h-screen items-center justify-center">
       <DashboardContainer />
     </main>
   );

@@ -4,9 +4,18 @@ const DashboardContainer = () => {
   return (
     <section className="grid xl:grid-cols-4 xl:grid-rows-2 md:grid-cols-3 md:grid-rows-3 grid-cols-1 grid-rows-1 gap-8">
       {/* Block 1 */}
-      <div className="xl:col-span-1 xl:row-span-2 md:col-span-3 sm:col-span-1">
-        <div className="card h-full bg-purple-500 flex items-center justify-center text-white text-preset-2">
-          Block 1
+      <div className="xl:col-span-1 xl:row-span-2 md:col-span-3 sm:col-span-1 xl:w-[255px] xl:h-[520px] md:h-[203px]">
+        <div className="w-full h-full max-w-sm rounded-md border p-4 bg-purple-500">
+          <div className="flex flex-col animate-pulse m-8">
+            <div className="size-16 rounded-full bg-gray-200"></div>
+            <div className="space-y-1 mt-10">
+              <div className="h-2 rounded bg-gray-200"></div>
+              <div className="space-y-4">
+                <div className="h-2 rounded bg-gray-200"></div>
+                <div className="h-2 rounded bg-gray-200"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
