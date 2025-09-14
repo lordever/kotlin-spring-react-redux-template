@@ -7,5 +7,14 @@
   "bracketSameLine": false,
   "arrowParens": "always",
   "printWidth": 80,
-  "endOfLine": "crlf"
+  "endOfLine": "crlf",
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindConfig": "./tailwind.config.js",
+  "tailwindFunctions": [
+    "cn",
+    "clsx",
+    "cva"
+  ]
 }
