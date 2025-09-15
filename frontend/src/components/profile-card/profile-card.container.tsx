@@ -15,7 +15,7 @@ const ProfileCardContainer: FC<ProfileCardContainerProps> = ({
 
   const handleNavLinkClick = useCallback((navLink: TimeCategories) => {
     onNavLinkClick(navLink);
-  }, []);
+  }, [onNavLinkClick]);
 
   return (
     <ProfileCard

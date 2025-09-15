@@ -3,6 +3,11 @@ import { CategoryTypes } from './category-card.model';
 import clsx from 'clsx';
 import { TimeCategories } from '../../model/time-categories.model';
 import { getPreviousTimeMessage } from './category-card.utils';
+import {
+  CategoryTypesColorMap,
+  CategoryTypesImageMap,
+  CategoryTypesTitleMap,
+} from './category-card.constants';
 
 const CategoryCardSkeleton = () => (
   <>
@@ -14,27 +19,8 @@ const CategoryCardSkeleton = () => (
   </>
 );
 
-const CategoryTypesColorMap: Record<CategoryTypes, string> = {
-  [CategoryTypes.WORK]: 'bg-orange-300',
-  [CategoryTypes.PLAY]: 'bg-blue-300',
-  [CategoryTypes.STUDY]: 'bg-pink-400',
-  [CategoryTypes.EXERCISE]: 'bg-green-400',
-  [CategoryTypes.SOCIAL]: 'bg-purple-700',
-  [CategoryTypes.SELF_CARE]: 'bg-yellow-300',
-};
-
-const CategoryTypesImageMap: Record<CategoryTypes, string> = {
-  [CategoryTypes.WORK]: 'icon-work.svg',
-  [CategoryTypes.PLAY]: 'icon-play.svg',
-  [CategoryTypes.STUDY]: 'icon-study.svg',
-  [CategoryTypes.EXERCISE]: 'icon-exercise.svg',
-  [CategoryTypes.SOCIAL]: 'icon-social.svg',
-  [CategoryTypes.SELF_CARE]: 'icon-self-care.svg',
-};
-
 type CategoryCardProps = {
   type: CategoryTypes;
-  name: string;
   timeCategory: TimeCategories;
   spentTime: string;
   previousSpentTime: string;
@@ -43,7 +29,6 @@ type CategoryCardProps = {
 
 const CategoryCard = ({
   type,
-  name,
   timeCategory,
   previousSpentTime,
   spentTime,
@@ -73,7 +58,9 @@ const CategoryCard = ({
 
         {!loading && (
           <div className="flex flex-col gap-6">
-            <p className="text-preset-5-medium text-white">{name}</p>
+            <p className="text-preset-5-medium text-white">
+              {CategoryTypesTitleMap[type]}
+            </p>
 
             <div className="flex flex-col gap-5">
               <h2 className="text-preset-1 text-white">{spentTime}</h2>

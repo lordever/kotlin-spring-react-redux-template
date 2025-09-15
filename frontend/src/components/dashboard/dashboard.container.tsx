@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ProfileCardContainer from '../profile-card/profile-card.container';
-import { CategoryTypes } from '../category-card/category-card.model';
 import CategoryCardContainer from '../category-card/category-card.container';
 import { TimeCategories } from '../../model/time-categories.model';
 
@@ -19,65 +18,7 @@ const DashboardContainer = () => {
           />
         </div>
 
-        <div className="col-span-1 xl:row-span-1">
-          <CategoryCardContainer
-            spentTime="5hrs"
-            previousSpentTime="5hrs"
-            timeCategory={activeTimeCategory}
-            type={CategoryTypes.WORK}
-            name="Work"
-          />
-        </div>
-
-        <div className="col-span-1 xl:row-span-1">
-          <CategoryCardContainer
-            spentTime="5hrs"
-            previousSpentTime="5hrs"
-            timeCategory={activeTimeCategory}
-            type={CategoryTypes.PLAY}
-            name="Play"
-          />
-        </div>
-
-        <div className="col-span-1 xl:row-span-1">
-          <CategoryCardContainer
-            spentTime="5hrs"
-            previousSpentTime="5hrs"
-            timeCategory={activeTimeCategory}
-            type={CategoryTypes.STUDY}
-            name="Study"
-          />
-        </div>
-
-        <div className="col-span-1 xl:row-span-1">
-          <CategoryCardContainer
-            spentTime="5hrs"
-            previousSpentTime="5hrs"
-            timeCategory={activeTimeCategory}
-            type={CategoryTypes.EXERCISE}
-            name="Exercise"
-          />
-        </div>
-
-        <div className="col-span-1 xl:row-span-1">
-          <CategoryCardContainer
-            spentTime="5hrs"
-            previousSpentTime="5hrs"
-            timeCategory={activeTimeCategory}
-            type={CategoryTypes.SOCIAL}
-            name="Social"
-          />
-        </div>
-
-        <div className="col-span-1 xl:row-span-1">
-          <CategoryCardContainer
-            spentTime="5hrs"
-            previousSpentTime="5hrs"
-            timeCategory={activeTimeCategory}
-            type={CategoryTypes.SELF_CARE}
-            name="Self Care"
-          />
-        </div>
+        <CategoryCardContainer timeCategory={activeTimeCategory} />
       </div>
     </section>
   );
