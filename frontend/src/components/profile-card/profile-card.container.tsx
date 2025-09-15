@@ -11,11 +11,14 @@ const ProfileCardContainer: FC<ProfileCardContainerProps> = ({
   activeNavLink,
   onNavLinkClick,
 }) => {
-  const [loading, _] = useState(false);
+  const [loading] = useState(false);
 
-  const handleNavLinkClick = useCallback((navLink: TimeCategories) => {
-    onNavLinkClick(navLink);
-  }, [onNavLinkClick]);
+  const handleNavLinkClick = useCallback(
+    (navLink: TimeCategories) => {
+      onNavLinkClick(navLink);
+    },
+    [onNavLinkClick],
+  );
 
   return (
     <ProfileCard

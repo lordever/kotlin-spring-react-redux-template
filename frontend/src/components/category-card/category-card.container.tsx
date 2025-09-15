@@ -6,7 +6,7 @@ import { categoryCards } from './category-card.mock';
 const CategoryCardContainer: FC<{ timeCategory: TimeCategories }> = ({
   timeCategory,
 }) => {
-  const [loading, _] = useState(false);
+  const [loading] = useState(false);
 
   return (
     <>
