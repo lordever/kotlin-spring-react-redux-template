@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import ProfileCard from './profile-card.component';
+import { TimeCategories } from '../../model/time-categories.model';
 
-const ProfileCardContainer = () => {
+type ProfileCardContainerProps = {
+  activeNavLink: TimeCategories;
+  onNavLinkClick: (timeCategory: TimeCategories) => void;
+};
+
+const ProfileCardContainer: FC<ProfileCardContainerProps> = ({
+  activeNavLink,
+  onNavLinkClick,
+}) => {
   const [loading, _] = useState(false);
 
-  return <ProfileCard loading={loading} />;
+  const handleNavLinkClick = useCallback((navLink: TimeCategories) => {
+    onNavLinkClick(navLink);
+  }, []);
+
+  return (
+    <ProfileCard
+      activeNavLink={activeNavLink}
+      onNavClick={handleNavLinkClick}
+      loading={loading}
+    />
+  );
 };
 
 export default ProfileCardContainer;

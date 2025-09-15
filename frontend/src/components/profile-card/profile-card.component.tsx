@@ -1,6 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import NavLink from '../common/nav-link.component';
-import { ProfileCardCategories } from './profile-card.model';
+import { TimeCategories } from '../../model/time-categories.model';
 
 const ProfileCardSkeleton = () => (
   <>
@@ -25,16 +25,18 @@ const ProfileCardSkeleton = () => (
 
 type ProfileCardProps = {
   loading: boolean;
+  activeNavLink: TimeCategories;
+  onNavClick: (navLink: TimeCategories) => void;
 };
 
-const ProfileCard = ({ loading }: ProfileCardProps) => {
-  const [activeNavLink, setActiveNavLink] = useState(
-    ProfileCardCategories.DAILY,
-  );
-
-  const handleNavLink = (navLink: string) => {
-    setActiveNavLink(navLink as ProfileCardCategories);
-  };
+const ProfileCard = ({
+  loading,
+  activeNavLink,
+  onNavClick,
+}: ProfileCardProps) => {
+  const handleNavLink = useCallback((navLink: string) => {
+    onNavClick(navLink as TimeCategories);
+  }, [onNavClick]);
 
   if (loading) {
     return <ProfileCardSkeleton />;
@@ -59,26 +61,26 @@ const ProfileCard = ({ loading }: ProfileCardProps) => {
 
       <div className="relative -top-[10px] flex flex-row items-center justify-center gap-7 rounded-b-2xl bg-navy-900 px-8 py-8 xl:flex-col xl:items-baseline">
         <NavLink
-          id={ProfileCardCategories.DAILY}
+          id={TimeCategories.DAILY}
           onClick={handleNavLink}
           href="#"
-          active={activeNavLink === ProfileCardCategories.DAILY}
+          active={activeNavLink === TimeCategories.DAILY}
         >
           Daily
         </NavLink>
         <NavLink
-          id={ProfileCardCategories.WEEKLY}
+          id={TimeCategories.WEEKLY}
           onClick={handleNavLink}
           href="#"
-          active={activeNavLink === ProfileCardCategories.WEEKLY}
+          active={activeNavLink === TimeCategories.WEEKLY}
         >
           Weekly
         </NavLink>
         <NavLink
-          id={ProfileCardCategories.MONTHLY}
+          id={TimeCategories.MONTHLY}
           onClick={handleNavLink}
           href="#"
-          active={activeNavLink === ProfileCardCategories.MONTHLY}
+          active={activeNavLink === TimeCategories.MONTHLY}
         >
           Monthly
         </NavLink>

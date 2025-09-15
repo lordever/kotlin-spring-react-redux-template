@@ -1,6 +1,8 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { CategoryTypes } from './category-card.model';
 import clsx from 'clsx';
+import { TimeCategories } from '../../model/time-categories.model';
+import { getPreviousTimeMessage } from './category-card.utils';
 
 const CategoryCardSkeleton = () => (
   <>
@@ -32,10 +34,25 @@ const CategoryTypesImageMap: Record<CategoryTypes, string> = {
 
 type CategoryCardProps = {
   type: CategoryTypes;
+  name: string;
+  timeCategory: TimeCategories;
+  spentTime: string;
+  previousSpentTime: string;
   loading?: boolean;
 };
 
-const CategoryCard = ({ type, loading }: CategoryCardProps) => {
+const CategoryCard = ({
+  type,
+  name,
+  timeCategory,
+  previousSpentTime,
+  spentTime,
+  loading,
+}: CategoryCardProps) => {
+  const previousTime = useMemo(() => {
+    return getPreviousTimeMessage(timeCategory, previousSpentTime);
+  }, [timeCategory, previousSpentTime]);
+
   const headerClassNames = clsx(
     CategoryTypesColorMap[type],
     'flex justify-end rounded-t-2xl px-4',
@@ -47,12 +64,23 @@ const CategoryCard = ({ type, loading }: CategoryCardProps) => {
         <img
           src={CategoryTypesImageMap[type]}
           className="h-[78px] w-[78px] object-contain"
-          alt="icon-work"
+          alt={type}
         />
       </div>
 
       <div className="relative -top-[20px] h-full rounded-2xl bg-navy-900 p-8">
         {loading && <CategoryCardSkeleton />}
+
+        {!loading && (
+          <div className="flex flex-col gap-6">
+            <p className="text-preset-5-medium text-white">{name}</p>
+
+            <div className="flex flex-col gap-5">
+              <h2 className="text-preset-1 text-white">{spentTime}</h2>
+              <p className="text-preset-6 text-navy-200">{previousTime}</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
