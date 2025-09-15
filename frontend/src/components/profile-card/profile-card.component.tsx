@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
+import NavLink from '../common/nav-link.component';
+import { ProfileCardCategories } from './profile-card.model';
 
 const ProfileCardSkeleton = () => (
   <>
-    <div className="rounded-t-2xl bg-purple-500 p-4">
+    <div className="rounded-t-2xl bg-purple-600 p-4">
       <div className="flex animate-pulse flex-row items-center gap-6 xl:min-h-[354px] xl:flex-col xl:items-baseline xl:gap-10">
         <div className="size-16 rounded-full bg-gray-200"></div>
         <div className="flex flex-col items-start justify-start gap-2">
@@ -26,7 +28,63 @@ type ProfileCardProps = {
 };
 
 const ProfileCard = ({ loading }: ProfileCardProps) => {
-  return <div>{loading && <ProfileCardSkeleton />}</div>;
+  const [activeNavLink, setActiveNavLink] = useState(
+    ProfileCardCategories.DAILY,
+  );
+
+  const handleNavLink = (navLink: string) => {
+    setActiveNavLink(navLink as ProfileCardCategories);
+  };
+
+  if (loading) {
+    return <ProfileCardSkeleton />;
+  }
+
+  return (
+    <>
+      <div className="relative z-10 rounded-2xl bg-purple-600">
+        <div className="flex flex-row items-center gap-6 px-8 py-8 xl:min-h-[354px] xl:flex-col xl:items-baseline xl:gap-10">
+          <img
+            src="/user-icon.png"
+            alt="user-icon"
+            className="w-[78px] rounded-full border-[3px] border-white shadow-2xl"
+          />
+
+          <div className="flex max-w-[138px] flex-col gap-[10px]">
+            <p className="text-preset-6 text-navy-200">Report for</p>
+            <h2 className="text-preset-2 text-white">Jeremy Robson</h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative -top-[10px] flex flex-row items-center justify-center gap-7 rounded-b-2xl bg-navy-900 px-8 py-8 xl:flex-col xl:items-baseline">
+        <NavLink
+          id={ProfileCardCategories.DAILY}
+          onClick={handleNavLink}
+          href="#"
+          active={activeNavLink === ProfileCardCategories.DAILY}
+        >
+          Daily
+        </NavLink>
+        <NavLink
+          id={ProfileCardCategories.WEEKLY}
+          onClick={handleNavLink}
+          href="#"
+          active={activeNavLink === ProfileCardCategories.WEEKLY}
+        >
+          Weekly
+        </NavLink>
+        <NavLink
+          id={ProfileCardCategories.MONTHLY}
+          onClick={handleNavLink}
+          href="#"
+          active={activeNavLink === ProfileCardCategories.MONTHLY}
+        >
+          Monthly
+        </NavLink>
+      </div>
+    </>
+  );
 };
 
 export default memo(ProfileCard);
