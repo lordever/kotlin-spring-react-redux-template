@@ -15,3 +15,8 @@ export type CategoryCard = {
   spentTime: string;
   previousSpentTime: string;
 };
+
+export type CategoryCardsModel = Record<
+  TimeCategories,
+  Omit<CategoryCard, 'timeCategory'>[]
+>;

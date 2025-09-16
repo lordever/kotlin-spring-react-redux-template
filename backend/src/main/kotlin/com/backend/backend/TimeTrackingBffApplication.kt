@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KotlinBackendApplication
+class TimeTrackingBffApplication
 
 fun main(args: Array<String>) {
-	runApplication<KotlinBackendApplication>(*args)
+	runApplication<TimeTrackingBffApplication>(*args)
 }

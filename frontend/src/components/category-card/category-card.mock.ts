@@ -1,10 +1,5 @@
 import { TimeCategories } from '../../model/time-categories.model';
-import { CategoryCard, CategoryTypes } from './category-card.model';
-
-type CategoryCardsModel = Record<
-  TimeCategories,
-  Omit<CategoryCard, 'timeCategory'>[]
->;
+import { CategoryCardsModel, CategoryTypes } from './category-card.model';
 
 export const categoryCards: CategoryCardsModel = {
   [TimeCategories.DAILY]: [
