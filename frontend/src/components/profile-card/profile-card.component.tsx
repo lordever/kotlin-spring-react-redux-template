@@ -27,16 +27,23 @@ type ProfileCardProps = {
   loading: boolean;
   activeNavLink: TimeCategories;
   onNavClick: (navLink: TimeCategories) => void;
+  userName?: string;
+  avatarPath?: string;
 };
 
 const ProfileCard = ({
   loading,
+  userName,
+  avatarPath,
   activeNavLink,
   onNavClick,
 }: ProfileCardProps) => {
-  const handleNavLink = useCallback((navLink: string) => {
-    onNavClick(navLink as TimeCategories);
-  }, [onNavClick]);
+  const handleNavLink = useCallback(
+    (navLink: string) => {
+      onNavClick(navLink as TimeCategories);
+    },
+    [onNavClick],
+  );
 
   if (loading) {
     return <ProfileCardSkeleton />;
@@ -47,14 +54,14 @@ const ProfileCard = ({
       <div className="relative z-10 rounded-2xl bg-purple-600">
         <div className="flex flex-row items-center gap-6 px-8 py-8 xl:min-h-[354px] xl:flex-col xl:items-baseline xl:gap-10">
           <img
-            src="/user-icon.png"
+            src={avatarPath || "/user-icon.png"}
             alt="user-icon"
             className="w-[78px] rounded-full border-[3px] border-white shadow-2xl"
           />
 
           <div className="flex max-w-[138px] flex-col gap-[10px]">
             <p className="text-preset-6 text-navy-200">Report for</p>
-            <h2 className="text-preset-2 text-white">Jeremy Robson</h2>
+            <h2 className="text-preset-2 text-white">{userName || "-"}</h2>
           </div>
         </div>
       </div>

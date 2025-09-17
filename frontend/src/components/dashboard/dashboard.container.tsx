@@ -15,6 +15,7 @@ const DashboardContainer = () => {
       <div className="mx-6 grid w-full max-w-[612px] grid-cols-1 gap-8 md:grid-cols-3 xl:max-w-[1116px] xl:grid-cols-4 xl:grid-rows-2">
         <div className="col-span-1 md:col-span-3 xl:col-span-1 xl:row-span-2">
           <ProfileCardContainer
+            userId={USER_ID}
             activeNavLink={activeTimeCategory}
             onNavLinkClick={setActiveTimeCategory}
           />

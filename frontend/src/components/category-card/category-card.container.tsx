@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import CategoryCard from './category-card.component';
 import { TimeCategories } from '../../model/time-categories.model';
-import { CategoryCardsModel, CategoryTypes } from './category-card.model';
+import { CategoryTypes } from './category-card.model';
 import { getCategoryCards } from '../../api/categoryCards.api';
+import { CategoryCardsResponseModel } from '../../model/category-card-response.model';
 
 type CategoryCardContainerProps = {
   userId: string;
@@ -14,7 +15,8 @@ const CategoryCardContainer: FC<CategoryCardContainerProps> = ({
   timeCategory,
 }) => {
   const [loading, setLoading] = useState(true);
-  const [categoryCards, setCategoryCards] = useState<CategoryCardsModel>();
+  const [categoryCards, setCategoryCards] =
+    useState<CategoryCardsResponseModel>();
 
   useEffect(() => {
     getCategoryCards(userId)
@@ -71,4 +73,4 @@ const CategoryCardContainer: FC<CategoryCardContainerProps> = ({
   );
 };
 
-export default CategoryCardContainer;
+export default memo(CategoryCardContainer);

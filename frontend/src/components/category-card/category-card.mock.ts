@@ -1,7 +1,8 @@
 import { TimeCategories } from '../../model/time-categories.model';
-import { CategoryCardsModel, CategoryTypes } from './category-card.model';
+import { CategoryTypes } from './category-card.model';
+import { CategoryCardsResponseModel } from '../../model/category-card-response.model';
 
-export const categoryCards: CategoryCardsModel = {
+export const categoryCards: CategoryCardsResponseModel = {
   [TimeCategories.DAILY]: [
     { type: CategoryTypes.WORK, spentTime: '6hrs', previousSpentTime: '7hrs' },
     { type: CategoryTypes.PLAY, spentTime: '2hrs', previousSpentTime: '1hr' },
