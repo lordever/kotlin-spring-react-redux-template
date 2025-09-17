@@ -5,7 +5,7 @@ export const getCategoryCards = async (
   userId: string,
 ): Promise<CategoryCardsResponseModel> => {
   const { data } = await httpClient.get<CategoryCardsResponseModel>(
-    `/users/${encodeURIComponent(userId)}/category-cards`,
+    `/category-cards/${encodeURIComponent(userId)}`,
   );
   return data;
 };
