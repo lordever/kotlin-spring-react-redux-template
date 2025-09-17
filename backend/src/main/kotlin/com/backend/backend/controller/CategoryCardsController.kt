@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/users")
 class CategoryCardsController(
     private val repository: CategoryCardsRepository

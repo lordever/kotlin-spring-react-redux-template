@@ -3,6 +3,8 @@ import ProfileCardContainer from '../profile-card/profile-card.container';
 import CategoryCardContainer from '../category-card/category-card.container';
 import { TimeCategories } from '../../model/time-categories.model';
 
+const USER_ID = '16591f98-2104-4402-ae81-811c9b421b69';
+
 const DashboardContainer = () => {
   const [activeTimeCategory, setActiveTimeCategory] = useState(
     TimeCategories.DAILY,
@@ -18,7 +20,10 @@ const DashboardContainer = () => {
           />
         </div>
 
-        <CategoryCardContainer timeCategory={activeTimeCategory} />
+        <CategoryCardContainer
+          userId={USER_ID}
+          timeCategory={activeTimeCategory}
+        />
       </div>
     </section>
   );

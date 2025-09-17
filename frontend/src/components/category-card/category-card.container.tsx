@@ -1,23 +1,67 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import CategoryCard from './category-card.component';
 import { TimeCategories } from '../../model/time-categories.model';
-import { categoryCards } from './category-card.mock';
+import { CategoryCardsModel, CategoryTypes } from './category-card.model';
+import { getCategoryCards } from '../../api/categoryCards.api';
 
-const CategoryCardContainer: FC<{ timeCategory: TimeCategories }> = ({
+type CategoryCardContainerProps = {
+  userId: string;
+  timeCategory: TimeCategories;
+};
+
+const CategoryCardContainer: FC<CategoryCardContainerProps> = ({
+  userId,
   timeCategory,
 }) => {
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [categoryCards, setCategoryCards] = useState<CategoryCardsModel>();
+
+  useEffect(() => {
+    getCategoryCards(userId)
+      .then((data) => {
+        setCategoryCards(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [userId]);
+
+  const SKELETON_TYPES: CategoryTypes[] = [
+    CategoryTypes.WORK,
+    CategoryTypes.PLAY,
+    CategoryTypes.STUDY,
+    CategoryTypes.EXERCISE,
+    CategoryTypes.SOCIAL,
+    CategoryTypes.SELF_CARE,
+  ];
+
+  if (loading) {
+    return (
+      <>
+        {SKELETON_TYPES.map((t) => (
+          <div key={`skeleton-${t}`} className="col-span-1 xl:row-span-1">
+            <CategoryCard
+              timeCategory={timeCategory as TimeCategories}
+              spentTime=""
+              previousSpentTime=""
+              loading
+              type={t}
+            />
+          </div>
+        ))}
+      </>
+    );
+  }
 
   return (
     <>
-      {categoryCards[timeCategory].map(
+      {categoryCards?.[timeCategory]?.map(
         ({ type, spentTime, previousSpentTime }) => (
-          <div className="col-span-1 xl:row-span-1">
+          <div key={`${type}`} className="col-span-1 xl:row-span-1">
             <CategoryCard
               timeCategory={timeCategory as TimeCategories}
               spentTime={spentTime}
               previousSpentTime={previousSpentTime}
-              loading={loading}
               type={type}
             />
           </div>
