@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: backend
+
+server:
+  port: 10000
+
+security:
+  jwt:
+    signing-key: ${JWT_SIGNING_KEY:change-me-very-long-random-string}
+    issuer: "http://localhost"
+    audience: "backend"
+    id-token-ttl-seconds: 1800 # 30 mins
