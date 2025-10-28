@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 @Service
-class UserService(val userRepository: UserRepository, val passwordEncoder: PasswordEncoder) {
+class UserService(val userRepository: UserRepository) {
     fun createUser(newUser: CreateUser): Mono<UserResponse> = userRepository.save(
         User(
             username = newUser.username,
             email = newUser.email,
-            passwordHash = passwordEncoder.encode(newUser.password),
         )
     ).map { it.toResponse() }
 }

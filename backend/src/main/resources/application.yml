@@ -1,13 +1,10 @@
 spring:
   application:
     name: backend
+  security:
+    user:
+      name: user1
+      password: Market1234!
 
 server:
   port: 10000
-
-security:
-  jwt:
-    signing-key: ${JWT_SIGNING_KEY:change-me-very-long-random-string}
-    issuer: "http://localhost"
-    audience: "backend"
-    id-token-ttl-seconds: 1800 # 30 mins

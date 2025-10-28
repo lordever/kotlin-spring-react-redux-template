@@ -23,7 +23,6 @@ class BootstrapApp(val userService: UserService, val userRepository: UserReposit
                     val newUser = CreateUser(
                         username = "Alex",
                         email = "alex@mail.com",
-                        password = "12345"
                     )
 
                     userService.createUser(newUser).subscribe()
