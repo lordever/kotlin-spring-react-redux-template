@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: kotlin-spring-bff
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+server:
+  port: 10000
+
+logging:
+  level:
+    com:
+      kotlin_spring_bff: debug

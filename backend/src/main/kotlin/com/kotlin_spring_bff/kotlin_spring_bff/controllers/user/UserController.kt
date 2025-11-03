@@ -19,11 +19,7 @@ class UserController(
     }
 
     @GetMapping(PATH)
-    fun getUsers(): List<UserDTO> {
-        val users: List<UserDTO> = userService.findAll()
-        logger.info { "${users.size} users found" }
-        return users
-    }
+    fun getUsers(): List<UserDTO> = userService.findAll()
 
     @PostMapping(PATH)
     fun createUser(@RequestBody userDTO: UserDTO): UserDTO {
