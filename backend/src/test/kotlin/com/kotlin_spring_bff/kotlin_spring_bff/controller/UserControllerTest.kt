@@ -1,32 +1,44 @@
 package com.kotlin_spring_bff.kotlin_spring_bff.controller
 
-import com.kotlin_spring_bff.kotlin_spring_bff.controllers.user.UserController
-import com.kotlin_spring_bff.kotlin_spring_bff.mappers.UserMapper
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.kotlin_spring_bff.kotlin_spring_bff.models.UserDTO
-import com.kotlin_spring_bff.kotlin_spring_bff.repositories.UserRepository
-import org.assertj.core.api.Assertions.assertThat
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import java.util.*
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class UserControllerTest {
     @Autowired
-    private lateinit var userController: UserController
+    private lateinit var mockMvc: MockMvc
 
     @Autowired
-    private lateinit var userRepository: UserRepository
-
-    @Autowired
-    private lateinit var userMapper: UserMapper
+    private lateinit var objectMapper: ObjectMapper
 
     @Test
-    fun testListUsers() {
-        val listUsers: List<UserDTO> = userController.getUsers()
-        assertThat(listUsers.size).isEqualTo(1)
+    fun testListUsersWithoutAuth() {
+        mockMvc.perform(get("/api/v1/users"))
+            .andExpect(status().isUnauthorized)
+    }
+
+    @Test
+    fun testListUsersWithAuth() {
+        mockMvc.perform(
+            get("/api/v1/users")
+                .with(httpBasic("user", "password"))
+        )
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
     }
 
     @Test
@@ -37,16 +49,29 @@ class UserControllerTest {
             email = "sarah_connor@mail.com"
         )
 
-        val responseEntity: ResponseEntity<UserDTO> = userController.createUser(userDTO)
-        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.CREATED)
-        assertThat(responseEntity.body).isNotNull
-        assertThat(responseEntity.headers.get("Location")).isNotNull
 
-        val locationUUID: List<String>? = responseEntity.headers.location?.path?.split("/")
-        val uuid: UUID = UUID.fromString(locationUUID!![4])
+        val result = mockMvc.perform(
+            post("/api/v1/users")
+                .with(httpBasic("user", "password"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userDTO))
+        )
+            .andExpect { status().isCreated }
+            .andExpect { header().exists(HttpHeaders.LOCATION) }
+            .andReturn()
 
-        val user: UserDTO = userController.getUserById(uuid)
-        assertThat(user).isNotNull
-        assertThat(user.firstName).isEqualTo(userDTO.firstName)
+        val locationHeader = result.response.getHeader(HttpHeaders.LOCATION)
+        val locationUUID = locationHeader?.substringAfterLast("/")
+
+        mockMvc.perform(
+            get("/api/v1/users/$locationUUID")
+                .with(httpBasic("user", "password"))
+        )
+            .andExpect { status().isOk }
+            .andExpect { content().contentType(MediaType.APPLICATION_JSON) }
+            .andExpect(jsonPath("$.firstName", equalTo(userDTO.firstName)))
+            .andExpect(jsonPath("$.lastName", equalTo(userDTO.lastName)))
+            .andExpect(jsonPath("$.email", equalTo(userDTO.email)))
     }
 }
