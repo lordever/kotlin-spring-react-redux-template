@@ -83,7 +83,7 @@ module.exports = {
       colors: {
         'gray-900': '#3D3B48',
         'gray-200': '#DEDEDE',
-        'green-400': '#BAB7D4',
+        'green-400': '#38CC8B',
         'green-300': '#77E2B3',
         'red-400': '#FF7979',
         'purple-700': '#5E54A4',
