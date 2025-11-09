@@ -52,7 +52,7 @@ module.exports = {
           {
             lineHeight: '175%',
             letterSpacing: '0.25px',
-            fontWeight: '500',
+            fontWeight: '400',
           },
         ],
         'preset-5-bold': [
@@ -81,8 +81,8 @@ module.exports = {
         ],
       },
       colors: {
-        'grey-900': '#3D3B48',
-        'grey-200': '#DEDEDE',
+        'gray-900': '#3D3B48',
+        'gray-200': '#DEDEDE',
         'green-400': '#BAB7D4',
         'green-300': '#77E2B3',
         'red-400': '#FF7979',
