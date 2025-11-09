@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .login-bg {
+        @apply relative bg-cover bg-center bg-no-repeat min-h-screen w-full;
+        background-image: url('../../../public/images/bg-intro-mobile.png');
+    }
+
+    .login-bg::before {
+        @apply absolute inset-0 bg-red-400 opacity-40 content-[''];
+    }
+
+    @screen md {
+        .login-bg {
+            background-image: url('../../../public/images/bg-intro-desktop.png');
+        }
+    }
+}

@@ -51,7 +51,7 @@ export function Input(props: InputProps) {
 
   const errorLabelClassName = clsx('text-preset-5-italic italic text-red-400');
   const inputClassName = clsx(
-    'w-full rounded-md border p-4 pl-8 text-left text-preset-4 text-gray-900' +
+    'w-full min-w-[279px] rounded-md border p-4 pl-8 text-left text-preset-4 text-gray-900' +
       ' border-gray-200',
     'outline-none focus:border-green-400 focus:border-purple-700 focus-visible:border-green-400',
     !!props.error && 'border-2 border-orange-400',
@@ -87,13 +87,13 @@ export function Input(props: InputProps) {
         )}
       </div>
 
-      <div className="flex flex-row justify-between self-end">
-        {props.error && (
+      {props.error && (
+        <div className="flex flex-row justify-between self-end">
           <label className={errorLabelClassName} htmlFor={id}>
             {props.error}
           </label>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
