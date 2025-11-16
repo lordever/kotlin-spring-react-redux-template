@@ -5,9 +5,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {RouterProvider} from "react-router-dom";
-import {router} from "./routes/router";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
+import {AppRouter} from "./routes/app-router";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <div className="App">
             <React.StrictMode>
                 <Provider store={store}>
-                    <RouterProvider router={router}/>
+                    <RouterProvider router={AppRouter}/>
                 </Provider>
             </React.StrictMode>
         </div>

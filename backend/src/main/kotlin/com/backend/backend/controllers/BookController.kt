@@ -2,7 +2,6 @@ package com.backend.backend.controllers
 
 import com.backend.backend.dto.BookDto
 import com.backend.backend.services.book.BookService
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
