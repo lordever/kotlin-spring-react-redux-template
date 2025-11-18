@@ -1,16 +1,25 @@
-import {AppBar, Box, Toolbar, Typography} from '@mui/material';
-import AdbIcon from '@mui/icons-material/Adb';
+import {AppBar, Box, Link, MenuItem, Toolbar, Typography} from '@mui/material';
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
+import {ROUTES} from "../../constants/routes.constant";
+
+const pages = {
+    'main': {path: ROUTES.main, name: 'Main'},
+    'add-book': {path: ROUTES.addBook, name: 'Add Book'},
+}
 
 const Navbar = () => {
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar>
-                    <NavLink to="/">
-                        <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
-                    </NavLink>
+                    {Object.entries(pages).map(([key, page]) => (
+                        <Link component={RouterLink} to={page.path}>
+                            <MenuItem key={key}>
+                                <Typography sx={{textAlign: 'center'}}>{page.name}</Typography>
+                            </MenuItem>
+                        </Link>
+                    ))}
                 </Toolbar>
             </AppBar>
         </Box>
