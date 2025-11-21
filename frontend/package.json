@@ -26,7 +26,7 @@
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:8181",
+  "proxy": "http://client-backend:8181",
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
