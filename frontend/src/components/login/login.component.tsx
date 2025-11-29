@@ -37,7 +37,7 @@ const Login = () => {
         const data: UserModel[] = await response.json();
         dispatch(setUsers(data));
         navigate("/users");
-    }, [username, password])
+    }, [username, password, dispatch, navigate])
 
     return (
         <Layout>

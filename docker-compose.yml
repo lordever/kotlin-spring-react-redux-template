@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  client-frontend:
+    image: frontend:0.0.1
+    build: ./frontend
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+
+  client-backend:
+    image: client:0.0.1
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "10000:10000"
+    environment:
+      - SERVER_PORT=10000
+
+  client-proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - client-frontend
+      - client-backend
