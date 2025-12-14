@@ -17,7 +17,7 @@ class AuthController(
     private val ldapDirectoryService: LdapDirectoryService
 ) {
     companion object {
-        const val BASE_PATH = "/auth"
+        const val BASE_PATH = "/api/v1/auth"
     }
 
     @PostMapping("$BASE_PATH/login")
@@ -27,7 +27,6 @@ class AuthController(
             ?: return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED).body(
                     LoginResponse(
-                        success = false,
                         message = "User with this email (${loginRequest.email}) not found"
                     )
                 )
@@ -37,7 +36,6 @@ class AuthController(
         if (!bindResult.success) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                 LoginResponse(
-                    success = false,
                     message = "Invalid credentials"
                 )
             )
@@ -55,8 +53,6 @@ class AuthController(
 
         return ResponseEntity.ok(
             LoginResponse(
-                success = true,
-                message = "Login successful",
                 token = token
             )
         )
